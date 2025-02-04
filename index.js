@@ -56,7 +56,7 @@ app.get('/api/classify-number', async (req, res) => {
     const value = req.query.number;
 
     if (!value || isNaN(value)) {
-        return res.status(400).json({ error: true, message: 'invalid input value' })
+        return res.status(400).json({ number: value || undefined, error: true, message: 'invalid input value' })
     }
 
     const num = parseInt(value, 10);
@@ -75,9 +75,9 @@ app.get('/api/classify-number', async (req, res) => {
         const response = {
             number: num,
             is_prime: isPrime(num),
-            is_perfect_number: isPerfectNumber(num),
+            is_perfect: isPerfectNumber(num),
             properties: properties,
-            sum_of_digits: sumOfDigits(num),
+            digit_sum: sumOfDigits(num),
             fun_fact: funFact,
         }
 
