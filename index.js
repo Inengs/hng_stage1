@@ -65,12 +65,18 @@ app.get('/api/classify-number', async (req, res) => {
         const factResponse = await axios.get(`http://numbersapi.com/${num}/math`);
         const funFact = factResponse.data
 
+        let properties = [];
+        if (isArmstrongNumber(num)) {
+            properties.push('armstrong')
+        }
+
+        properties.push(num % 2 === 0 ? 'even' : 'odd');
+
         const response = {
             number: num,
             is_prime: isPrime(num),
             is_perfect_number: isPerfectNumber(num),
-            is_armstrong_number: isArmstrongNumber(num),
-            _parity: num % 2 === 0 ? "even" : "odd",
+            properties: properties,
             sum_of_digits: sumOfDigits(num),
             fun_fact: funFact,
         }
